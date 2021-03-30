@@ -48,24 +48,25 @@ movie/${movieId}`);
 
   getGenres = () => {
     const { genres } = this.state;
-    console.log('genres: ', genres);
+
     return genres.map(({ name }) => name).join(' ');
   };
   render() {
+    const { name, title, overview, poster_path } = this.state;
     return (
       <div>
-        <img src={this.state.poster_path} alt="" />
+        <img src={poster_path} alt={title || name} width={200} />
         <div>
           <h1>
-            {this.state.title || this.state.name} ({this.getYear})
+            {title || name} {this.state.release_date}
           </h1>
-          <p>User Score: {this.getUserScore}%</p>
+          <p>User Score: {this.state.vote_average}%</p>
           <h3>Overview</h3>
-          <p>{this.state.overview}</p>
+          <p>{overview}</p>
           <h3>Genres</h3>
-          <p>{this.getGenres}</p>
+          <p>{}</p> {/*this.state.genres*/}
         </div>
-        {/*   <img width={200} src={imgSrc} alt={title || name} />
+        {/* 
         <ul>
           {this.state.movies.map(({ id, title, name }) => (
             <li key={id}>
