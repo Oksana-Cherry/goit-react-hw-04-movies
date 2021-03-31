@@ -1,5 +1,6 @@
-import { React, Component } from 'react';
+import React, { Component } from 'react';
 import ApiMovies from '../services/api-movies';
+import GoBackButton from '../components/GoBackButton';
 //import axios from 'axios';
 /*const MovieDetailsPage = () => {
   return <h1>Это страница</h1>;
@@ -51,20 +52,38 @@ movie/${movieId}`);
 
     return genres.map(({ name }) => name).join(' ');
   };
+
+  handleGoBack = () => {
+    const { history, location } = this.props;
+    return history.push(location?.state?.from || '/');
+  };
   render() {
-    const { name, title, overview, poster_path } = this.state;
+    const {
+      name,
+      title,
+      overview,
+      poster_path,
+      release_date,
+      vote_average,
+      genres,
+    } = this.state;
+
+    const Year = release_date ? this.getYear() : null;
+    const Genres = genres ? this.getGenres() : null;
+    const userScore = vote_average ? this.getUserScore() : null;
     return (
       <div>
-        <img src={poster_path} alt={title || name} width={200} />
+        <GoBackButton onClick={this.handleGoBack} /> {/*на предыдущий маршрут*/}
+        <img src={poster_path} alt={title || name} width="200" />
         <div>
           <h1>
-            {title || name} {this.state.release_date}
+            {title || name} {Year}
           </h1>
-          <p>User Score: {this.state.vote_average}%</p>
+          <p>User Score: {userScore}%</p>
           <h3>Overview</h3>
           <p>{overview}</p>
           <h3>Genres</h3>
-          <p>{}</p> {/*this.state.genres*/}
+          <p>{Genres}</p>
         </div>
         {/* 
         <ul>
