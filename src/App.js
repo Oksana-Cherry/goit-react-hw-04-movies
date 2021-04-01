@@ -3,6 +3,7 @@ import HomePage from './pages/HomePage';
 import MoviesPage from './pages/MoviesPage';
 import MovieDetailsPage from './pages/MovieDetailsPage';
 import NotFoundPage from './pages/NotFoundPage';
+import './styles/base.scss';
 
 const App = () => (
   <div>
@@ -11,8 +12,8 @@ const App = () => (
         <NavLink
           exact
           to="/"
-          className="NavLink"
-          activeClassName="NavLink--active"
+          className="navLink"
+          activeClassName="navLink__active"
         >
           Home
         </NavLink>
@@ -20,8 +21,8 @@ const App = () => (
       <li>
         <NavLink
           to="/movies"
-          className="NavLink"
-          activeClassName="NavLink--active"
+          className="navLink"
+          activeClassName="navLink__active"
         >
           Movies
         </NavLink>

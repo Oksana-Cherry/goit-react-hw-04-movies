@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import PropTypes from 'prop-types';
-import './Searchbar.scss';
+import styles from './Searchbar.module.scss';
 
 class Searchbar extends Component {
   state = {
@@ -22,20 +22,20 @@ class Searchbar extends Component {
 
   render() {
     return (
-      <header className="Searchbar">
-        <form className="SearchForm" onSubmit={this.heandleSubmit}>
+      <header className={styles.searchbar}>
+        <form className={styles.searchForm} onSubmit={this.heandleSubmit}>
           <input
-            className="SearchForm-input"
+            className={styles.searchForm_input}
             type="text"
             value={this.state.query}
             onChange={this.handleChangeQuery}
           />
           <button
             type="submit"
-            className="SearchForm-button"
+            className={styles.searchForm_button}
             onClick={this.heandleSubmit}
           >
-            <span className="SearchForm-button-label">Search</span>
+            <span className={styles.searchForm_button_label}>Search</span>
           </button>
         </form>
       </header>

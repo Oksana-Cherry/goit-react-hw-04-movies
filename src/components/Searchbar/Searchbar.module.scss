@@ -1,6 +1,6 @@
 @import 'styles/shared.scss';
 
-.Searchbar {
+.searchbar {
   top: 0;
   left: 0;
   position: sticky;
@@ -21,7 +21,7 @@
 /*
  * Стили компонента SearchForm
  */
-.SearchForm {
+.searchForm {
   display: flex;
   align-items: center;
   width: 100%;
@@ -31,7 +31,7 @@
   overflow: hidden;
 }
 
-.SearchForm-button {
+.searchForm_button {
   display: inline-block;
   width: 48px;
   height: 48px;
@@ -46,11 +46,11 @@
   outline: none;
 }
 
-.SearchForm-button:hover {
+.searchForm_button:hover {
   opacity: 1;
 }
 
-.SearchForm-button-label {
+.searchForm_button_label {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -62,7 +62,7 @@
   border: 0;
 }
 
-.SearchForm-input {
+.searchForm_input {
   display: inline-block;
   width: 100%;
   font: inherit;
@@ -73,7 +73,7 @@
   padding-right: 4px;
 }
 
-.SearchForm-input::placeholder {
+.searchForm_input::placeholder {
   font: inherit;
   font-size: 18px;
 }

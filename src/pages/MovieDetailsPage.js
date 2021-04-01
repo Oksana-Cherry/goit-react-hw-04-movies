@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import ApiMovies from '../services/api-movies';
 import GoBackButton from '../components/GoBackButton';
 //import axios from 'axios';
