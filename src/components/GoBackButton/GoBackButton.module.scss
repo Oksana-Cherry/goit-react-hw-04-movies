@@ -1,5 +1,6 @@
+@import 'styles/shared.scss';
 .goBackButton {
   width: 100px;
-  background: #3f51b5;
+  background: $indigo;
   color: #f2f2f2;
 }
