@@ -32,11 +32,28 @@ const fetchMovieDetails = async movieId => {
 
   return response.data;
 };
+const fetchCast = async movieId => {
+  const response = await axios.get(`/movie/${movieId}/credits`);
+
+  console.log(response.data.cast);
+
+  return response.data.cast;
+};
+
+const fetchReviews = async movieId => {
+  const response = await axios.get(`/movie/${movieId}/reviews`);
+
+  console.log(response.data.results);
+
+  return response.data.results;
+};
 
 const ApiMovies = {
   fetchTrends,
   fetchMoviesSearch,
   fetchMovieDetails,
+  fetchCast,
+  fetchReviews,
 };
 
 export default ApiMovies;

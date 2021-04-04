@@ -1,12 +1,18 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
+import { Route, Switch, NavLink } from 'react-router-dom';
 import ApiMovies from '../services/api-movies';
 import GoBackButton from '../components/GoBackButton';
+import Cast from '../components/Cast';
+import Reviews from '../components/Reviews';
+
+import defaultImage from '../image/default.jpg';
 //import axios from 'axios';
 /*const MovieDetailsPage = () => {
   return <h1>Это страница</h1>;
 };
 export default MovieDetailsPage;*/
 //{this.props.match.params.movieId}
+const IMAGE = 'https://image.tmdb.org/t/p/w342';
 class MovieDetailsPage extends Component {
   state = {
     poster_path: null,
@@ -50,7 +56,7 @@ movie/${movieId}`);
   getGenres = () => {
     const { genres } = this.state;
 
-    return genres.map(({ name }) => name).join(' ');
+    return genres.map(({ name }) => name).join(', ');
   };
 
   handleGoBack = () => {
@@ -59,6 +65,7 @@ movie/${movieId}`);
   };
   render() {
     const {
+      id,
       name,
       title,
       overview,
@@ -71,10 +78,12 @@ movie/${movieId}`);
     const Year = release_date ? this.getYear() : null;
     const Genres = genres ? this.getGenres() : null;
     const userScore = vote_average ? this.getUserScore() : null;
+    const imageUrl = poster_path ? IMAGE + poster_path : defaultImage;
+
     return (
       <div>
         <GoBackButton onClick={this.handleGoBack} /> {/*на предыдущий маршрут*/}
-        <img src={poster_path} alt={title || name} width="200" />
+        <img src={imageUrl} alt={title || name} width="200" />
         <div>
           <h1>
             {title || name} {Year}
@@ -83,18 +92,17 @@ movie/${movieId}`);
           <h3>Overview</h3>
           <p>{overview}</p>
           <h3>Genres</h3>
-          <p>{Genres}</p>
+          <p>{Genres}.</p>
         </div>
-        {/* 
-        <ul>
-          {this.state.movies.map(({ id, title, name }) => (
-            <li key={id}>
-              <NavLink exact to={`/movies/${id}`}>
-                {title || name}
-              </NavLink>
-            </li>
-          ))}
-        </ul>*/}
+        <section>
+          <h2>Additional information</h2>
+          <NavLink to={{ pathname: `/movies/${id}/cast` }}>Cast</NavLink>
+          <NavLink to={{ pathname: `/movies/${id}/reviews` }}>Reviews</NavLink>
+        </section>
+        <Switch>
+          <Route path="/movies/:movieId/cast" component={Cast} />
+          <Route path="/movies/:movieId/reviews" component={Reviews} />
+        </Switch>
       </div>
     );
   }
