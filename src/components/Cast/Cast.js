@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ApiMovies from '../../services/api-movies';
-
+import styles from './Cast.module.scss';
 import defaultImage from '../../image/default.jpg';
 
 //const IMAGE = 'https://image.tmdb.org/t/p/w500';
@@ -19,14 +19,15 @@ class Cast extends Component {
   }
 
   render() {
-    const { cast, profile_path } = this.state;
-    const url = profile_path
-      ? `https://image.tmdb.org/t/p/w500/` + profile_path
-      : defaultImage;
+    const { cast } = this.state;
 
     return (
-      <ul>
-        {cast.map(({ id, name, character }) => {
+      <ul className={styles.castItem}>
+        {cast.map(({ id, name, character, profile_path }) => {
+          const url = profile_path
+            ? `https://image.tmdb.org/t/p/w500/` + profile_path
+            : defaultImage;
+
           return (
             <li key={id}>
               <img width="100" src={url} alt={name} />

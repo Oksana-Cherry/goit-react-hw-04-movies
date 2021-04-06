@@ -35,7 +35,7 @@ const fetchMovieDetails = async movieId => {
 const fetchCast = async movieId => {
   const response = await axios.get(`/movie/${movieId}/credits`);
 
-  console.log(response.data.cast);
+  //console.log(response.data.cast);
 
   return response.data.cast;
 };
@@ -43,7 +43,7 @@ const fetchCast = async movieId => {
 const fetchReviews = async movieId => {
   const response = await axios.get(`/movie/${movieId}/reviews`);
 
-  console.log(response.data.results);
+  // console.log(response.data.results);
 
   return response.data.results;
 };

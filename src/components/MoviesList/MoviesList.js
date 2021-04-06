@@ -1,8 +1,9 @@
 import { NavLink } from 'react-router-dom';
+import styles from './MoviesList.module.scss';
 
 const MoviesList = ({ movies, location }) => {
   return (
-    <ul>
+    <ul className={styles.moviesList}>
       {movies.map(({ id, title, name }) => (
         <li key={id}>
           <NavLink

@@ -1,11 +1,20 @@
-import React, { Component } from 'react';
-import { Route, Switch, NavLink } from 'react-router-dom';
+import React, { Component, Suspense, lazy } from 'react';
+import { Route, NavLink } from 'react-router-dom';
 import ApiMovies from '../services/api-movies';
 import GoBackButton from '../components/GoBackButton';
-import Cast from '../components/Cast';
-import Reviews from '../components/Reviews';
-
+import Details from '../components/Details';
+import routes from '../routes';
 import defaultImage from '../image/default.jpg';
+
+//import Cast from '../components/Cast';
+//import Reviews from '../components/Reviews';
+
+const Cast = lazy(() =>
+  import('../components/Cast/' /* webpackChunkName: "cast" */),
+);
+const Reviews = lazy(() =>
+  import('../components/Reviews/' /* webpackChunkName: "reviews" */),
+);
 //import axios from 'axios';
 /*const MovieDetailsPage = () => {
   return <h1>Это страница</h1>;
@@ -61,9 +70,10 @@ movie/${movieId}`);
 
   handleGoBack = () => {
     const { history, location } = this.props;
-    return history.push(location?.state?.from || '/');
+    return history.push(location?.state?.from || routes.home);
   };
   render() {
+    const { match } = this.props;
     const {
       id,
       name,
@@ -81,29 +91,46 @@ movie/${movieId}`);
     const imageUrl = poster_path ? IMAGE + poster_path : defaultImage;
 
     return (
-      <div>
+      <>
         <GoBackButton onClick={this.handleGoBack} /> {/*на предыдущий маршрут*/}
-        <img src={imageUrl} alt={title || name} width="200" />
-        <div>
-          <h1>
-            {title || name} {Year}
-          </h1>
-          <p>User Score: {userScore}%</p>
-          <h3>Overview</h3>
-          <p>{overview}</p>
-          <h3>Genres</h3>
-          <p>{Genres}.</p>
-        </div>
-        <section>
+        <Details
+          imageUrl={imageUrl}
+          name={name}
+          title={title}
+          userScore={userScore}
+          overview={overview}
+          Year={Year}
+          Genres={Genres}
+        />
+        <section className="add_section ">
           <h2>Additional information</h2>
-          <NavLink to={{ pathname: `/movies/${id}/cast` }}>Cast</NavLink>
-          <NavLink to={{ pathname: `/movies/${id}/reviews` }}>Reviews</NavLink>
+          <ul className="">
+            <li className="add_section_item">
+              <NavLink
+                to={{ pathname: `/movies/${id}/cast` }}
+                className="navLink"
+                activeClassName="navLink__active"
+              >
+                Cast
+              </NavLink>
+            </li>
+            <li className="add_section_item">
+              <NavLink
+                to={{ pathname: `/movies/${id}/reviews` }}
+                className="navLink"
+                activeClassName="navLink__active"
+              >
+                Reviews
+              </NavLink>
+            </li>
+          </ul>
         </section>
-        <Switch>
-          <Route path="/movies/:movieId/cast" component={Cast} />
-          <Route path="/movies/:movieId/reviews" component={Reviews} />
-        </Switch>
-      </div>
+        <Suspense fallback={<div>Loading...</div>}>
+          {/* <Suspense fallback={<div>Загрузка...</div>}>*/}
+          <Route path={`${match.path}/cast`} component={Cast} />
+          <Route path={`${match.path}/reviews`} component={Reviews} />
+        </Suspense>
+      </>
     );
   }
 }
